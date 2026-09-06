@@ -1,0 +1,28 @@
+# dsh-clash-verge-rev-proxy bundle patch
+#
+# Host entry: registers a set of `proxy_*` tools that drive a Mihomo
+# External Controller (Clash Verge Rev, Clash Meta, or a bare Mihomo
+# kernel) over its HTTP API. The row mounts on the host composition,
+# so every preset that inherits the host `tools` registry sees the
+# tools.
+#
+# Configuration is user-editable from the dsh Settings UI:
+#   Settings → Plugins → Plugin configuration  (namespace
+#   `clash-verge-rev-proxy`): set the External Controller URL and its
+#   secret there. Saving runs a live connectivity check first
+#   (GET /version against the controller). The host half registers that
+#   settings namespace and the browser half ships the card; saves take
+#   effect immediately.
+#
+# IMPORTANT: the controller secret is a credential — do NOT commit a
+# real secret in this `config:` block. Prefer saving it from the
+# Settings UI (it lands in your private settings.yaml), or exporting
+# the DSH_PROXY_SECRET environment variable. This block is only a
+# deployment-time fallback; resolution order per tool call:
+#   saved settings  >  env  >  config block below  >  http://127.0.0.1:9097
+- insert:
+    - id: tool-clash-verge-rev-proxy
+      name: dsh-clash-verge-rev-proxy
+      config:
+        controller: http://127.0.0.1:9097
+        secret: ""

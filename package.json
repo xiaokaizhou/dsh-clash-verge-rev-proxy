@@ -1,0 +1,24 @@
+{
+  "name": "dsh-clash-verge-rev-proxy",
+  "version": "0.2.0",
+  "description": "DSH plugin: registers a toolset that drives the local Clash Verge Rev via its Mihomo External Controller API (127.0.0.1:9097). Controller URL and secret are editable from dsh Settings → Plugins → Plugin configuration (settings namespace `clash-verge-rev-proxy`).",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": { "default": "./lib/index.js" },
+    "./client": { "default": "./lib/client.js" },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "*"
+  }
+}
